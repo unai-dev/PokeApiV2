@@ -13,6 +13,9 @@ namespace PokeApiV2.Utils
 
             CreateMap<Generation, GenerationDTO>();
             CreateMap<AddGenerationDTO, Generation>();
+
+            CreateMap<Trainer, TrainerDTO>();
+            CreateMap<AddTrainerDTO, Trainer>();
         }
 
     }

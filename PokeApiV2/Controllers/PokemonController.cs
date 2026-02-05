@@ -90,9 +90,5 @@ namespace PokeApiV2.Controllers
 
             return NoContent();
         }
-
-
-
-
     }
 }

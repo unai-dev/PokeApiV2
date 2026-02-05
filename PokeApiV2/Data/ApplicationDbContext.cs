@@ -17,6 +17,7 @@ namespace PokeApiV2.Data
 
         public DbSet<Pokemon> Pokemons { get; set; }
         public DbSet<Generation> Generations { get; set; }
+        public DbSet<Trainer> Trainers { get; set; }
 
     }
 }
