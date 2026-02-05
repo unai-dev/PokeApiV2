@@ -10,12 +10,23 @@ namespace PokeApiV2.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Pokemons_Generations_GenerationId",
+                table: "Pokemons");
+
+            migrationBuilder.AlterColumn<int>(
+                name: "GenerationId",
+                table: "Pokemons",
+                type: "int",
+                nullable: true,
+                oldClrType: typeof(int),
+                oldType: "int");
+
             migrationBuilder.AddColumn<int>(
                 name: "TrainerId",
                 table: "Pokemons",
                 type: "int",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "Trainers",
@@ -23,8 +34,7 @@ namespace PokeApiV2.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Team = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -37,17 +47,27 @@ namespace PokeApiV2.Migrations
                 column: "TrainerId");
 
             migrationBuilder.AddForeignKey(
+                name: "FK_Pokemons_Generations_GenerationId",
+                table: "Pokemons",
+                column: "GenerationId",
+                principalTable: "Generations",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
                 name: "FK_Pokemons_Trainers_TrainerId",
                 table: "Pokemons",
                 column: "TrainerId",
                 principalTable: "Trainers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Pokemons_Generations_GenerationId",
+                table: "Pokemons");
+
             migrationBuilder.DropForeignKey(
                 name: "FK_Pokemons_Trainers_TrainerId",
                 table: "Pokemons");
@@ -62,6 +82,24 @@ namespace PokeApiV2.Migrations
             migrationBuilder.DropColumn(
                 name: "TrainerId",
                 table: "Pokemons");
+
+            migrationBuilder.AlterColumn<int>(
+                name: "GenerationId",
+                table: "Pokemons",
+                type: "int",
+                nullable: false,
+                defaultValue: 0,
+                oldClrType: typeof(int),
+                oldType: "int",
+                oldNullable: true);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Pokemons_Generations_GenerationId",
+                table: "Pokemons",
+                column: "GenerationId",
+                principalTable: "Generations",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace PokeApiV2.Controllers
         [HttpGet]
         public async Task<IEnumerable<TrainerDTO>> Get()
         {
-            var trainers = await context.Trainers.ToListAsync();
+            var trainers = await context.Trainers.Include(x => x.PokemonIds).ToListAsync();
             var trainersDTO = mapper.Map<IEnumerable<TrainerDTO>>(trainers);
             return trainersDTO;
         }
@@ -31,7 +31,7 @@ namespace PokeApiV2.Controllers
         [HttpGet("{id:int}", Name = "GetTrainer")]
         public async Task<ActionResult<TrainerDTO>> Get(int id)
         {
-            var trainer = await context.Trainers.FirstOrDefaultAsync(x => x.Id == id);
+            var trainer = await context.Trainers.Include(x => x.PokemonIds).FirstOrDefaultAsync(x => x.Id == id);
             if (trainer is null) return NotFound();
 
             var trainerDTO = mapper.Map<TrainerDTO>(trainer);
@@ -55,9 +55,9 @@ namespace PokeApiV2.Controllers
             }
 
             var trainer = mapper.Map<Trainer>(trainerDTO);
-            context.Add(trainerDTO);
+            context.Add(trainer);
             await context.SaveChangesAsync();
-            var trainerCreated = mapper.Map<TrainerDTO>(trainerDTO);
+            var trainerCreated = mapper.Map<TrainerDTO>(trainer);
             return CreatedAtRoute("GetTrainer", new { id = trainer.Id }, trainerCreated);
 
         }

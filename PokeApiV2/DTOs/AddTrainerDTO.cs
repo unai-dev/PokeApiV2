@@ -9,9 +9,6 @@ namespace PokeApiV2.DTOs
         [Required]
         [FirstUpperCaseValidation]
         public required string Name { get; set; }
-        [Required]
-        [FirstUpperCaseValidation]
-        public required string Team { get; set; }
         public List<int> PokemonIds { get; set; } = [];
 
     }

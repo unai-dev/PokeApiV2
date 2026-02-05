@@ -11,7 +11,7 @@ using PokeApiV2.Data;
 namespace PokeApiV2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260205081346_AddTrainerCrud")]
+    [Migration("20260205154650_AddTrainerCrud")]
     partial class AddTrainerCrud
     {
         /// <inheritdoc />
@@ -52,7 +52,7 @@ namespace PokeApiV2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("GenerationId")
+                    b.Property<int?>("GenerationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -64,7 +64,7 @@ namespace PokeApiV2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TrainerId")
+                    b.Property<int?>("TrainerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -88,10 +88,6 @@ namespace PokeApiV2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Team")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Trainers");
@@ -101,15 +97,11 @@ namespace PokeApiV2.Migrations
                 {
                     b.HasOne("PokeApiV2.Entities.Generation", "Generation")
                         .WithMany("Pokemons")
-                        .HasForeignKey("GenerationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GenerationId");
 
                     b.HasOne("PokeApiV2.Entities.Trainer", "Trainer")
                         .WithMany("Pokemons")
-                        .HasForeignKey("TrainerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TrainerId");
 
                     b.Navigation("Generation");
 

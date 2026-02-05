@@ -14,10 +14,10 @@ namespace PokeApiV2.Entities
 
         public List<string> Skills { get; set; } = [];
 
-        public int GenerationId { get; set; }
+        public int? GenerationId { get; set; }
         public Generation? Generation { get; set; }
 
-        public int TrainerId { get; set; }
+        public int? TrainerId { get; set; }
         public Trainer? Trainer { get; set; }
 
     }

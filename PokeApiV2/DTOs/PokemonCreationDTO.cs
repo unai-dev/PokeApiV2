@@ -11,7 +11,7 @@ namespace PokeApiV2.DTOs
         [StringLength(30, ErrorMessage = "The field {0} must contain {1} chars or less")]
         public required string Name { get; set; }
         public List<string> Skills { get; set; } = [];
-        public int GenerationId { get; set; }
+        public int? GenerationId { get; set; }
 
     }
 }

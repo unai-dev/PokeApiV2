@@ -9,10 +9,7 @@ namespace PokeApiV2.Entities
         [Required]
         [FirstUpperCaseValidation]
         public required string Name { get; set; }
-        [Required]
-        [FirstUpperCaseValidation]
-        public required string Team { get; set; }
-        public List<Pokemon> Pokemons { get; set; } = [];
+        public List<int> PokemonIds { get; set; } = [];
 
     }
 }
