@@ -49,6 +49,13 @@ namespace PokeApiV2.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(PokemonCreationDTO pokemonDTO)
         {
+            var pokemonExistsInDb = await context.Pokemons.AnyAsync(x => x.Name == pokemonDTO.Name);
+
+            if (pokemonExistsInDb)
+            {
+                return BadRequest($"Pokemon already exists in db");
+            }
+
             var generation = await context.Generations.FirstOrDefaultAsync(x => x.Id == pokemonDTO.GenerationId);
 
             if (generation is null)

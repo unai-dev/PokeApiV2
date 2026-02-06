@@ -44,6 +44,13 @@ namespace PokeApiV2.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(AddGenerationDTO generationDTO)
         {
+            var generationExists = await context.Generations.AnyAsync(x => x.Number == generationDTO.Number);
+
+            if (generationExists)
+            {
+                return BadRequest("Generation already exists in DB");
+            }
+
             var generation = mapper.Map<Generation>(generationDTO);
 
             context.Add(generation);
