@@ -6,7 +6,7 @@ namespace PokeApiV2.DTOs
     {
         public int Id { get; set; }
         public required string Name { get; set; }
-        public List<Pokemon> Pokemons { get; set; } = [];
+        public List<PokemonDTO> Pokemons { get; set; } = [];
 
 
     }

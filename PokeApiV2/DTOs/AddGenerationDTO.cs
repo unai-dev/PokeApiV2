@@ -11,8 +11,8 @@ namespace PokeApiV2.DTOs
         public required string Name { get; set; }
 
         [Required]
-        public int Number { get; set; }
+        public required int Number { get; set; }
 
-        public List<Pokemon> Pokemons { get; set; } = [];
+        public List<PokemonDTO> Pokemons { get; set; } = [];
     }
 }

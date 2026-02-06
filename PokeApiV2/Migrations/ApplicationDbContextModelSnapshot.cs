@@ -85,10 +85,6 @@ namespace PokeApiV2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.PrimitiveCollection<string>("PokemonIds")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Trainers");
@@ -101,7 +97,7 @@ namespace PokeApiV2.Migrations
                         .HasForeignKey("GenerationId");
 
                     b.HasOne("PokeApiV2.Entities.Trainer", "Trainer")
-                        .WithMany()
+                        .WithMany("Pokemons")
                         .HasForeignKey("TrainerId");
 
                     b.Navigation("Generation");
@@ -110,6 +106,11 @@ namespace PokeApiV2.Migrations
                 });
 
             modelBuilder.Entity("PokeApiV2.Entities.Generation", b =>
+                {
+                    b.Navigation("Pokemons");
+                });
+
+            modelBuilder.Entity("PokeApiV2.Entities.Trainer", b =>
                 {
                     b.Navigation("Pokemons");
                 });

@@ -13,7 +13,7 @@ namespace PokeApiV2.Entities
         public required string Name { get; set; }
 
         [Required]
-        public int Number { get; set; }
+        public required int Number { get; set; }
 
         public List<Pokemon> Pokemons { get; set; } = [];
 
